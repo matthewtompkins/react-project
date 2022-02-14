@@ -8,20 +8,20 @@ const data = {
     England: 'London'
 };
 
+let buttons = [];
+
+for ( const [key,value] of Object.entries(data) ) {
+    const btn1 = [key, value];
+    const btn2 = [value, key];
+    buttons.push(btn1,btn2);
+}
+
+buttons = buttons.sort(() => Math.random() - 0.5);
+
 function CountryButtonGame() {
 
     const btnContext = useContext(ButtonContext);
 
-    let buttons = [];
-    
-    for ( const [key,value] of Object.entries(data) ) {
-        const btn1 = [key, value];
-        const btn2 = [value, key];
-        buttons.push(btn1,btn2);
-    }
-
-    buttons = buttons.sort(() => Math.random() - 0.5);
-    
     btnContext.allBtns = buttons;
     
     if ( btnContext.allBtns.length > 0 ) {

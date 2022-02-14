@@ -15,7 +15,9 @@ export function ButtonContextProvider(props) {
         console.log(ButtonContext, context);
         if ( context.activeBtns.length === 0 ) {
             setBtnActive(context.activeBtns);
-            context.activeBtns.push(button.target);
+            context.activeBtns.push([button.target.getAttribute('value'),button.target.getAttribute('answer')]);
+        } else {
+            
         }
     }
 
