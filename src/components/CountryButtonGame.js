@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { ButtonContextProvider } from "../store/button-context";
 import ButtonContext from "../store/button-context";
 import CountryButton from './CountryButton';
 import classes from './CountryButtonGame.module.css';
@@ -24,18 +23,32 @@ function CountryButtonGame() {
     buttons = buttons.sort(() => Math.random() - 0.5);
     
     btnContext.allBtns = buttons;
-
-    return(
-        <ButtonContextProvider>
+    
+    if ( btnContext.allBtns.length > 0 ) {
+        return(
             <section className={classes.wrap}>
                 <ul className={classes.list}>
-                    {buttons.map((cur,ind) => {
-                        return <CountryButton key={ind} title={cur[0]} answer={cur[1]} />
+                    {btnContext.allBtns.map((cur,ind) => {
+                        if ( btnContext.activeBtns ) {
+                            if ( btnContext.activeBtns.includes(cur) ) {
+                                return <CountryButton key={ind} active={true} title={cur[0]} answer={cur[1]} />
+                            } else {
+                                return <CountryButton key={ind} title={cur[0]} answer={cur[1]} />
+                            }
+                        } else {
+                            return <CountryButton key={ind} title={cur[0]} answer={cur[1]} />
+                        }
                     })}
                 </ul>
             </section>
-        </ButtonContextProvider>
-    );
+        )
+    } else {
+        return(
+            <section className={classes.wrap}>
+                <h1>Congratulations!</h1>
+            </section>
+        );
+    }
 }
 
 export default CountryButtonGame;

@@ -8,7 +8,7 @@ function CountryButton(props) {
 
     return(
         <li className={classes.item}>
-            <button className={classes.button} onClick={btnContext.btnClicked} value={props.title} answer={props.answer}>{props.title}</button>
+            <button className={classes.button} onClick={btnContext.btnClicked} active={props.active} value={props.title} answer={props.answer}>{props.title}</button>
         </li>
     );
 }

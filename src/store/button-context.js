@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 
 const ButtonContext = createContext({
-    btnCount: 0,
-    btns: [],
+    allBtns: [],
+    activeBtns: [],
     btnClicked: () => {}
 });
 
@@ -12,40 +12,24 @@ export function ButtonContextProvider(props) {
     const [isIncorrect, setIsIncorrect] = useState(false);
 
     function btnClickHandler(button) {
-        if ( context.btns.length === 0 ) {
-            context.btns.push(button.target);
-            setActiveButtons(context.btns);
-        } else if ( context.btns.length === 1 && context.btns[0] !== button.target ) {
-            context.btns.push(button.target);
-            checkAnswer(context.btns);
+        console.log(ButtonContext, context);
+        if ( context.activeBtns.length === 0 ) {
+            setBtnActive(context.activeBtns);
+            context.activeBtns.push(button.target);
         }
     }
 
-    function setActiveButtons(arr, check = true) {
-        arr.forEach(cur => {
-            if ( check ) {
-                cur.classList.add('active');
-            } else {
-                cur.classList.add('incorrect');
+    function removeButtons() {
+        for ( let i = 0; i < context.allBtns.length; i++ ) {
+            if ( context.allBtns[i] === context.activeBtns[0] || context.allBtns[i] === context.activeBtns[1] ) {
+                context.allBtns.splice(i,0);
             }
-        });
-    }
-
-    function checkAnswer(arr) {
-        if ( arr[0].getAttribute('answer') === arr[1].getAttribute('value') ) {
-            removeButtons(arr);
-        } else {
-            setActiveButtons(arr, false);
         }
-    }
-
-    function removeButtons(arr) {
-        arr.btns = [];
-        arr.btnCount -= 2;
     }
 
     const context = {
-        btns: [],
+        allBtns: [],
+        activeBtns: [],
         btnClicked: btnClickHandler
     };
 
