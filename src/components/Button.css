@@ -1,0 +1,7 @@
+.country-button {
+    background-color: #55efc4;
+}
+
+.country-button.active {
+    background-color: #0984e3;
+}
